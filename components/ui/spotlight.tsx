@@ -24,8 +24,8 @@ export const Spotlight = ({ className, fill }: SpotlightProps) => {
           rx="1924.71"
           ry="273.501"
           transform="matrix(-0.822377 -0.568943 -0.568943 0.822377 3631.88 2291.09)"
-          fill={fill || 'white'}
-          fillOpacity="0.21"
+          fill={fill || 'oklch(0.7 0.18 240)'}
+          fillOpacity="0.18"
         />
       </g>
       <defs>
@@ -40,7 +40,7 @@ export const Spotlight = ({ className, fill }: SpotlightProps) => {
         >
           <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-          <feGaussianBlur stdDeviation="151" result="effect1_foregroundBlur_1065_8" />
+          <feGaussianBlur stdDeviation="160" result="effect1_foregroundBlur_1065_8" />
         </filter>
       </defs>
     </svg>

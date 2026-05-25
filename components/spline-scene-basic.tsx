@@ -1,7 +1,6 @@
 'use client'
 
 import React from "react"
-
 import { SplineScene } from '@/components/ui/spline-scene'
 import { Spotlight } from '@/components/ui/spotlight'
 
@@ -11,23 +10,73 @@ interface SplineSceneBasicProps {
 
 export function SplineSceneBasic({ children }: SplineSceneBasicProps) {
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-black">
-      <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="white" />
+    <div className="relative min-h-screen w-full overflow-hidden" style={{ backgroundColor: 'oklch(0.07 0.01 250)' }}>
 
-      <div className="flex h-screen items-center">
-        {/* Left content */}
-        <div className="w-full lg:w-1/2 relative z-10 flex flex-col justify-center p-8 md:p-16">
+      {/* Ambient background layers */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background: 'radial-gradient(ellipse 60% 50% at 20% 50%, oklch(0.5 0.2 262 / 0.1), transparent 60%)',
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background: 'radial-gradient(ellipse 50% 60% at 80% 40%, oklch(0.55 0.18 295 / 0.08), transparent 60%)',
+        }}
+      />
+
+      {/* Spotlights */}
+      <Spotlight
+        className="-top-40 left-0 md:left-60 md:-top-20"
+        fill="oklch(0.7 0.18 240)"
+      />
+      <Spotlight
+        className="-top-20 right-0 md:right-20"
+        fill="oklch(0.65 0.2 295)"
+      />
+
+      {/* Dot grid with fade */}
+      <div
+        className="pointer-events-none absolute inset-0 dot-grid"
+        style={{
+          maskImage: 'radial-gradient(ellipse 80% 80% at 50% 0%, black 0%, transparent 100%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 80% 80% at 50% 0%, black 0%, transparent 100%)',
+          opacity: 0.4,
+        }}
+      />
+
+      {/* Layout */}
+      <div className="flex min-h-screen items-center pt-24">
+
+        {/* Left — text content */}
+        <div className="w-full lg:w-1/2 relative z-10 flex flex-col justify-center p-8 md:p-16 lg:pl-20">
           {children}
         </div>
 
-        {/* Right content - Spline 3D Scene */}
-        <div className="hidden lg:flex lg:w-1/2 relative h-full">
+        {/* Right — Spline 3D */}
+        <div className="hidden lg:flex lg:w-1/2 relative h-full min-h-screen items-center">
+          {/* Glow behind scene */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: 'radial-gradient(ellipse 70% 70% at 50% 50%, oklch(0.6 0.22 262 / 0.08), transparent 70%)',
+            }}
+          />
           <SplineScene
             scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
             className="h-full w-full"
           />
         </div>
       </div>
+
+      {/* Bottom gradient fade */}
+      <div
+        className="pointer-events-none absolute bottom-0 left-0 right-0 h-40"
+        style={{
+          background: 'linear-gradient(to bottom, transparent, oklch(0.07 0.01 250))',
+        }}
+      />
     </div>
   )
 }
