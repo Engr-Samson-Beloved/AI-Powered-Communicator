@@ -1,7 +1,7 @@
 'use client'
 
 import React from "react"
-import { SplineScene } from '@/components/ui/spline-scene'
+import { SpeechOrb } from '@/components/speech-orb'
 import { Spotlight } from '@/components/ui/spotlight'
 
 interface SplineSceneBasicProps {
@@ -63,10 +63,13 @@ export function SplineSceneBasic({ children }: SplineSceneBasicProps) {
               background: 'radial-gradient(ellipse 70% 70% at 50% 50%, oklch(0.6 0.22 262 / 0.08), transparent 70%)',
             }}
           />
-          <SplineScene
-            scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-            className="h-full w-full"
-          />
+          <div className="relative flex h-[min(72vh,680px)] w-full items-center justify-center">
+            <SpeechOrb />
+            <div className="absolute bottom-[13%] left-[9%] glass-float-card animate-float">
+              <span className="glass-float-dot" />
+              <span><strong>Voice practice</strong><small>Small steps, steady progress</small></span>
+            </div>
+          </div>
         </div>
       </div>
 

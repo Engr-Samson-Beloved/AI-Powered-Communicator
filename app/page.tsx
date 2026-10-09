@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { SplineSceneBasic } from '@/components/spline-scene-basic'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, Zap, MessageSquare, Brain, Sparkles, Shield, Globe, UserCheck, ShieldAlert, Award } from 'lucide-react'
+import { ArrowRight, Zap, MessageSquare, Brain, Shield, Globe, UserCheck, ShieldAlert, Award } from 'lucide-react'
 import { VoiceAuthModal } from '@/components/VoiceAuthModal'
 import { SpeechTestingSuite } from '@/components/SpeechTestingSuite'
 import { ClinicalDashboard } from '@/components/ClinicalDashboard'
@@ -143,14 +143,6 @@ export default function Home() {
             <SplineSceneBasic>
               <div className="space-y-7 animate-fade-up">
                 
-                {/* Badge */}
-                <div className="inline-flex items-center gap-2 gradient-badge rounded-full px-4 py-1.5">
-                  <Sparkles className="h-3.5 w-3.5" style={{ color: 'oklch(0.72 0.18 240)' }} />
-                  <span className="text-xs font-medium tracking-wide" style={{ color: 'oklch(0.75 0.12 240)' }}>
-                    Immersive Speech Pathology Partner
-                  </span>
-                </div>
-
                 {/* Headline */}
                 <div className="space-y-4">
                   <h1 className="text-5xl font-bold tracking-tight leading-[1.08] md:text-6xl lg:text-7xl text-white">
