@@ -1,9 +1,12 @@
 'use client'
 
 import React, { useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import { SplineSceneBasic } from '@/components/spline-scene-basic'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, Zap, MessageSquare, Brain, Shield, Globe, UserCheck, ShieldAlert, Award } from 'lucide-react'
+import { ArrowRight, Brain } from 'lucide-react'
+import { SiteHeader } from '@/components/site-header'
+import { ProductVision } from '@/components/ProductVision'
 import { VoiceAuthModal } from '@/components/VoiceAuthModal'
 import { SpeechTestingSuite } from '@/components/SpeechTestingSuite'
 import { ClinicalDashboard } from '@/components/ClinicalDashboard'
@@ -14,6 +17,7 @@ export default function Home() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [username, setUsername] = useState('Guest Speaker')
+  const prefersReducedMotion = useReducedMotion()
 
   // Clinical profile state
   const [clinicalScores, setClinicalScores] = useState({
@@ -87,70 +91,33 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen overflow-x-hidden relative" style={{ backgroundColor: 'oklch(0.07 0.01 250)' }}>
+    <main className="min-h-screen overflow-x-hidden relative" style={{ backgroundColor: 'var(--background)' }}>
       
       {/* ── Navigation Bar ─────────────────────────────────── */}
-      <nav className="fixed top-0 inset-x-0 z-50 flex items-center justify-center pt-4 px-4">
-        <div className="glass rounded-2xl w-full max-w-5xl px-5 py-3 flex items-center justify-between"
-          style={{ boxShadow: '0 8px 32px oklch(0 0 0 / 0.4), 0 0 0 1px oklch(0.5 0.1 250 / 0.15)' }}>
-          
-          {/* Logo */}
-          <div className="flex items-center gap-2.5 cursor-pointer" onClick={() => view !== 'landing' && setView('dashboard')}>
-            <div className="icon-orb w-9 h-9 rounded-xl" style={{ boxShadow: '0 0 18px oklch(0.6 0.22 262 / 0.5)' }}>
-              <Brain className="h-5 w-5" style={{ color: 'oklch(0.7 0.18 240)' }} />
-            </div>
-            <span className="text-lg font-semibold tracking-tight text-white">
-              VoicePath <span className="gradient-text-static">AI</span>
-            </span>
-          </div>
-
-          {/* Dynamic auth badge & link navigation */}
-          {isAuthenticated ? (
-            <div className="flex items-center gap-4">
-              <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
-                <UserCheck className="h-3.5 w-3.5" />
-                <span className="text-[10px] font-bold uppercase tracking-wider">Voice ID: {username}</span>
-              </div>
-              <Button
-                onClick={handleLogout}
-                variant="ghost"
-                size="sm"
-                className="text-xs text-white/50 hover:text-white rounded-xl border border-white/5"
-              >
-                Sign Out
-              </Button>
-            </div>
-          ) : (
-            <div className="flex items-center gap-3">
-              <Button
-                onClick={() => {
-                  setIsAuthModalOpen(true)
-                }}
-                className="btn-glow rounded-xl text-sm font-medium text-white gap-2 h-9 px-4"
-              >
-                Access Voice ID
-                <ArrowRight className="h-3.5 w-3.5" />
-              </Button>
-            </div>
-          )}
-        </div>
-      </nav>
+      <SiteHeader
+        landing={view === 'landing'}
+        authenticated={isAuthenticated}
+        username={username}
+        onHome={() => setView(isAuthenticated ? 'dashboard' : 'landing')}
+        onStart={() => setIsAuthModalOpen(true)}
+        onLogout={handleLogout}
+      />
 
       {/* ── Main View Switcher ─────────────────────────────── */}
-      <div className="pt-28 pb-16 px-4 md:px-8 relative z-10">
+      <div className={`${view === 'landing' ? 'pt-20' : 'pt-28'} pb-16 px-4 md:px-8 relative z-10`}>
         {view === 'landing' && (
           <section className="relative min-h-[calc(100vh-120px)] overflow-hidden">
             <SplineSceneBasic>
-              <div className="space-y-7 animate-fade-up">
+              <div className="hero-copy animate-fade-up -translate-y-[5vh] space-y-8">
                 
                 {/* Headline */}
                 <div className="space-y-4">
-                  <h1 className="text-5xl font-bold tracking-tight leading-[1.08] md:text-6xl lg:text-7xl text-white">
-                    Unlock Your Voice<br />
-                    <span className="gradient-text">With AI Pathology</span>
+                  <h1 className="hero-title text-white">
+                    Find your<br />
+                    <span>own rhythm.</span>
                   </h1>
-                  <p className="max-w-md text-base leading-relaxed" style={{ color: 'oklch(0.65 0.02 250)' }}>
-                    Practice articulation, pace, and breath control in an immersive workspace. Log in securely using your voiceprint, take diagnostic tests, and enter real-time consultation cabins with expert AI pathologists.
+                  <p className="hero-description max-w-md text-base leading-relaxed">
+                    A calmer way to practice speaking. Work on clarity, pacing, and breath, one conversation at a time.
                   </p>
                 </div>
 
@@ -159,57 +126,92 @@ export default function Home() {
                   <Button
                     size="lg"
                     onClick={() => setIsAuthModalOpen(true)}
-                    className="btn-glow rounded-xl gap-2 text-white font-medium cursor-pointer"
+                    className="hero-start rounded-xl gap-2 font-medium cursor-pointer"
                   >
-                    Start Voice Authentication
+                    Begin with your voice
                     <ArrowRight className="h-4 w-4" />
                   </Button>
                 </div>
               </div>
             </SplineSceneBasic>
 
-            {/* Feature Cards Grid (Embedded on Landing) */}
-            <div className="mx-auto max-w-6xl mt-20 relative z-20">
-              <div className="mb-12 space-y-3 text-center">
-                <h2 className="text-3xl font-extrabold tracking-tight text-white">
-                  Intelligent <span className="gradient-text">Speech Recovery Frameworks</span>
+            <section id="how-it-works" className="how-it-works mx-auto max-w-6xl px-2 pb-8 pt-16 md:px-6 md:pt-24" aria-labelledby="how-it-works-title">
+              <div className="mb-12 max-w-2xl">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-200/70">A simple way to begin</p>
+                <h2 id="how-it-works-title" className="text-3xl font-semibold tracking-tight text-white md:text-5xl">
+                  Practice, one step at a time.
                 </h2>
-                <p className="text-sm max-w-lg mx-auto" style={{ color: 'oklch(0.6 0.02 250)' }}>
-                  State-of-the-art pathology tools, fully integrated with real-time acoustic analysis.
+                <p className="mt-4 max-w-xl text-sm leading-6 text-white/55 md:text-base">
+                  Start with a short voice check, follow a guided prompt, then use your feedback to choose what to practice next.
                 </p>
               </div>
 
-              <div className="grid gap-6 md:grid-cols-3">
+              <div className="how-steps relative grid gap-5 md:grid-cols-3">
                 {[
                   {
-                    icon: Shield,
-                    title: 'Biometric Voice Key',
-                    desc: 'No passwords required. Authenticate, enroll, and verify your clinical progress files securely using cryptographic voice signature maps.',
-                    glow: '262'
+                    number: '01',
+                    title: 'Choose a practice',
+                    description: 'Pick clarity, fluency, or voice support. Each activity gives you a clear place to start.',
+                    visual: 'voice-check',
                   },
                   {
-                    icon: Zap,
-                    title: 'Interactive Speech Testing',
-                    desc: 'Identify phonemic omissions, rate-of-speech fluctuations, and sustained vowel vocal stability in real-time diagnostic sessions.',
-                    glow: '220'
+                    number: '02',
+                    title: 'Speak at your pace',
+                    description: 'Follow a word, reading passage, or sustained sound prompt in a focused session.',
+                    visual: 'speech-prompt',
                   },
                   {
-                    icon: MessageSquare,
-                    title: 'AI Consultation Cabin',
-                    desc: 'A full-hour voice consult experience simulating expert therapists. Receive live acoustic coaching adjustments and SOAP reports.',
-                    glow: '295'
-                  }
-                ].map(({ icon: Icon, title, desc, glow }) => (
-                  <div key={title} className="glass-card p-6 group">
-                    <div className="icon-orb mb-5" style={{ background: `oklch(0.2 0.06 ${glow} / 0.4)`, borderColor: `oklch(0.5 0.15 ${glow} / 0.25)` }}>
-                      <Icon className="h-5 w-5" style={{ color: `oklch(0.72 0.18 ${glow})` }} />
+                    number: '03',
+                    title: 'See what comes next',
+                    description: 'Review your practice feedback and return to your roadmap for another small step.',
+                    visual: 'progress-note',
+                  },
+                ].map((step, index) => (
+                  <motion.article
+                    key={step.number}
+                    className="how-step glass-card p-5 md:p-6"
+                    initial={prefersReducedMotion ? false : { opacity: 0, y: 22 }}
+                    whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.25 }}
+                    transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.55, delay: index * 0.12, ease: 'easeOut' }}
+                  >
+                    <div className={`how-step-visual ${step.visual}`} aria-hidden="true">
+                      {index === 0 && (
+                        <>
+                          <div className="mini-window-top"><span /><span /><span /><b>VOICE CHECK</b></div>
+                          <div className="mini-check-row"><i>◌</i><span>Articulation</span><b>Start</b></div>
+                          <div className="mini-check-row muted"><i>◌</i><span>Fluency</span><b>02</b></div>
+                          <div className="mini-check-row muted"><i>◌</i><span>Voice</span><b>03</b></div>
+                        </>
+                      )}
+                      {index === 1 && (
+                        <>
+                          <span className="prompt-caption">SAY THIS WORD</span>
+                          <strong className="prompt-word">buttercup</strong>
+                          <div className="mini-wave" aria-hidden="true">
+                            {Array.from({ length: 27 }, (_, bar) => <i key={bar} style={{ height: `${8 + ((bar * 7) % 22)}px`, animationDelay: `${bar * -0.07}s` }} />)}
+                          </div>
+                          <span className="prompt-status"><i /> Listening when you’re ready</span>
+                        </>
+                      )}
+                      {index === 2 && (
+                        <>
+                          <div className="progress-orbit"><span>3</span><small>MIN</small></div>
+                          <div className="progress-copy"><b>Your next step</b><span>Try a short clarity drill</span><i><em /></i></div>
+                        </>
+                      )}
                     </div>
-                    <h3 className="mb-2 text-lg font-bold text-white tracking-tight">{title}</h3>
-                    <p className="text-xs leading-relaxed" style={{ color: 'oklch(0.58 0.02 250)' }}>{desc}</p>
-                  </div>
+                    <div className="mt-6 flex items-center gap-3">
+                      <span className="how-step-number">{step.number}</span>
+                      <h3 className="text-lg font-semibold text-white">{step.title}</h3>
+                    </div>
+                    <p className="mt-3 text-sm leading-6 text-white/55">{step.description}</p>
+                  </motion.article>
                 ))}
               </div>
-            </div>
+            </section>
+
+            <ProductVision onBegin={() => setIsAuthModalOpen(true)} />
           </section>
         )}
 
@@ -259,7 +261,7 @@ export default function Home() {
             <span className="text-sm font-semibold text-white">VoicePath AI</span>
           </div>
           <p className="text-xs" style={{ color: 'oklch(0.42 0.02 250)' }}>
-            © 2026 VoicePath Speech Systems. HIPAA-Compliant Encryption.
+            © 2026 VoicePath AI. A space to practice communication.
           </p>
         </div>
       </footer>

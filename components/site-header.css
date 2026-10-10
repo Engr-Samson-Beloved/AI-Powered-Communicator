@@ -1,0 +1,18 @@
+.site-header { position: fixed; inset: 0 0 auto; z-index: 50; padding: 16px 32px 0; }
+.site-nav { min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 10px 32px; border: 1px solid #e2e8d31c; border-radius: 18px; background: #0c111bed; backdrop-filter: blur(20px); box-shadow: 0 8px 32px #00000024; color: #e2e8d3; }
+.site-wordmark { display: inline-flex; align-items: center; gap: 11px; font-size: 19px; font-weight: 650; letter-spacing: -.7px; cursor: pointer; }
+.site-brand-icon { display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid #c4df8d35; border-radius: 11px; color: #c4df8d; background: #c4df8d0b; }
+.site-brand-ai { margin-left: 6px; color: #c4df8d; font-size: 11px; letter-spacing: .7px; vertical-align: top; line-height: 24px; }
+.site-nav-links { display: flex; gap: 32px; font-size: 13px; color: #e2e8d399; }
+.site-nav-links a { padding: 9px 0; transition: color .2s; }
+.site-nav-links a:hover { color: #c4df8d; }
+.site-nav-actions { display: flex; align-items: center; gap: 16px; }
+.site-start { display: inline-flex; align-items: center; gap: 20px; padding: 11px 17px; border-radius: 10px; background: #c4df8d; color: #0c111b; font-size: 12px; font-weight: 650; cursor: pointer; transition: background .2s, transform .2s; }
+.site-start:hover { background: #d6e9ae; transform: translateY(-1px); }
+.site-user { display: flex; align-items: center; gap: 7px; color: #c4df8d; font-size: 12px; }
+.site-signout { color: #e2e8d399; font-size: 12px; cursor: pointer; }
+.site-nav :focus-visible { outline: 2px solid #c4df8d; outline-offset: 5px; }
+#how-it-works, #our-mission { scroll-margin-top: 110px; }
+@media (min-width: 1024px) { .site-nav { padding-inline: 80px; } }
+@media (max-width: 700px) { .site-header { padding: 12px 16px 0; } .site-nav { padding: 10px 16px; gap: 12px; min-height: 60px; } .site-nav-links, .site-user { display: none; } .site-wordmark { font-size: 17px; gap: 8px; } .site-start { gap: 9px; padding: 10px 12px; } }
+@media (prefers-reduced-motion: reduce) { .site-start { transition: none; } }

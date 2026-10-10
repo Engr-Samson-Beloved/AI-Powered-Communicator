@@ -4,7 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(0.08 0.01 250);
+  --background: #0c111b;
   --foreground: oklch(0.97 0 0);
   --card: oklch(0.12 0.01 250);
   --card-foreground: oklch(0.97 0 0);
@@ -226,7 +226,7 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-sans);
-    background-color: oklch(0.07 0.01 250);
+    background-color: var(--background);
   }
 
   /* Universal form element font reset */
@@ -514,6 +514,89 @@
   filter: drop-shadow(0 0 70px oklch(0.7 0.18 230 / 0.28));
 }
 
+.hero-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cpath d='M72 0H0V72' fill='none' stroke='%2395a9c7' stroke-opacity='.14' stroke-width='1'/%3E%3C/svg%3E");
+  opacity: 0.38;
+}
+
+.hero-copy { max-width: 980px; }
+
+.hero-title {
+  margin: 0;
+  font-size: clamp(4rem, 10vw, 9.5rem);
+  font-weight: 680;
+  line-height: 0.88;
+  letter-spacing: -0.085em;
+}
+
+.hero-title span {
+  color: oklch(0.78 0.11 220);
+  font-weight: 470;
+  letter-spacing: -0.09em;
+}
+
+.hero-waveform {
+  position: absolute;
+  z-index: 1;
+  top: 42%;
+  left: -4%;
+  width: 108%;
+  height: 34%;
+  overflow: visible;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.hero-waveform path {
+  fill: none;
+  stroke: oklch(0.72 0.12 220 / 0.19);
+  stroke-width: 1.4;
+  stroke-dasharray: 2 10;
+  animation: waveform-drift 42s linear infinite;
+}
+
+.hero-waveform path + path {
+  stroke: oklch(0.78 0.1 190 / 0.14);
+  stroke-width: 1;
+  stroke-dasharray: 3 17;
+  animation-duration: 58s;
+  animation-direction: reverse;
+}
+
+@keyframes waveform-drift {
+  to { stroke-dashoffset: -240; }
+}
+
+.hero-orbit {
+  position: absolute;
+  width: min(58vw, 760px);
+  aspect-ratio: 1;
+  border: 1px solid oklch(0.76 0.08 235 / 0.08);
+  border-radius: 50%;
+  pointer-events: none;
+  left: 58%;
+  top: 48%;
+  transform: translate(-50%, -50%);
+}
+
+.hero-orbit::before,
+.hero-orbit::after {
+  content: '';
+  position: absolute;
+  inset: 12%;
+  border: 1px solid oklch(0.76 0.08 235 / 0.06);
+  border-radius: 50%;
+}
+
+.hero-orbit::after { inset: 25%; }
+.hero-orbit-one { border-style: dashed; animation: orbit-drift 76s linear infinite; }
+.hero-orbit-two { width: min(42vw, 560px); border-style: dotted; animation: orbit-drift 96s linear infinite reverse; }
+
+@keyframes orbit-drift {
+  from { rotate: 0deg; }
+  to { rotate: 360deg; }
+}
+
 .glass-float-card {
   display: flex;
   align-items: center;
@@ -535,8 +618,70 @@
 .glass-float-dot { width: 9px; height: 9px; border-radius: 50%; background: oklch(0.78 0.16 175); box-shadow: 0 0 14px oklch(0.78 0.16 175 / 0.7); }
 .glass-float-icon { display: grid; width: 30px; height: 30px; place-items: center; border-radius: 10px; color: oklch(0.82 0.12 220); background: oklch(0.72 0.16 230 / 0.13); }
 
+.how-step {
+  background-color: oklch(0.115 0.015 250 / 0.86);
+  transition: border-color 220ms ease, transform 220ms ease;
+}
+
+.how-step:hover { transform: translateY(-4px); border-color: oklch(0.72 0.12 220 / 0.32); }
+
+.how-step-visual {
+  position: relative;
+  display: flex;
+  min-height: 214px;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  padding: 22px;
+  border: 1px solid oklch(0.72 0.08 240 / 0.13);
+  border-radius: 16px;
+  background-color: oklch(0.085 0.012 250);
+  background-image: radial-gradient(oklch(0.72 0.08 240 / 0.2) 0.7px, transparent 0.8px);
+  background-size: 18px 18px;
+}
+
+.mini-window-top { display: flex; align-items: center; gap: 5px; margin-bottom: 14px; color: oklch(0.68 0.02 250); font-size: 9px; letter-spacing: 0.14em; }
+.mini-window-top > span { width: 5px; height: 5px; border-radius: 50%; background: oklch(0.55 0.04 250 / 0.55); }
+.mini-window-top > b { margin-left: auto; font-size: 8px; font-weight: 600; }
+.mini-check-row { display: flex; height: 38px; align-items: center; gap: 10px; padding: 0 11px; border: 1px solid oklch(0.72 0.1 220 / 0.18); border-radius: 9px; background: oklch(0.6 0.1 230 / 0.1); color: oklch(0.9 0.02 240); font-size: 10px; }
+.mini-check-row + .mini-check-row { margin-top: 7px; }
+.mini-check-row i { color: oklch(0.75 0.12 205); font-size: 15px; font-style: normal; }
+.mini-check-row b { margin-left: auto; color: oklch(0.78 0.1 205); font-size: 9px; font-weight: 500; }
+.mini-check-row.muted { opacity: 0.44; background: transparent; }
+.mini-check-row.muted b { color: oklch(0.68 0.02 250); }
+
+.prompt-caption { color: oklch(0.68 0.04 220); font-size: 9px; font-weight: 650; letter-spacing: 0.18em; }
+.prompt-word { margin-top: 5px; color: oklch(0.96 0.01 250); font-size: clamp(27px, 3vw, 38px); font-weight: 550; letter-spacing: -0.06em; }
+.mini-wave { display: flex; height: 36px; align-items: center; gap: 3px; margin-top: 12px; }
+.mini-wave i { width: 3px; min-height: 4px; border-radius: 4px; background: oklch(0.7 0.12 205 / 0.8); animation: mini-wave-pulse 1.8s ease-in-out infinite alternate; }
+.prompt-status { display: flex; align-items: center; gap: 7px; margin-top: 12px; color: oklch(0.68 0.02 250); font-size: 9px; }
+.prompt-status i { width: 6px; height: 6px; border-radius: 50%; background: oklch(0.76 0.14 175); box-shadow: 0 0 9px oklch(0.76 0.14 175 / 0.5); }
+@keyframes mini-wave-pulse { from { transform: scaleY(0.48); opacity: 0.55; } to { transform: scaleY(1); opacity: 1; } }
+
+.progress-note { flex-direction: row; align-items: center; gap: 18px; }
+.progress-orbit { display: flex; width: 82px; height: 82px; flex: 0 0 auto; flex-direction: column; align-items: center; justify-content: center; border: 1px solid oklch(0.72 0.12 205 / 0.3); border-top-color: oklch(0.78 0.14 205 / 0.9); border-right-color: oklch(0.78 0.14 205 / 0.65); border-radius: 50%; color: white; animation: orbit-drift 26s linear infinite; }
+.progress-orbit span, .progress-orbit small { animation: orbit-drift 26s linear infinite reverse; }
+.progress-orbit span { font-size: 24px; font-weight: 600; line-height: 1; }
+.progress-orbit small { margin-top: 3px; color: oklch(0.68 0.04 220); font-size: 8px; letter-spacing: 0.12em; }
+.progress-copy { display: flex; min-width: 0; flex-direction: column; gap: 7px; }
+.progress-copy b { color: oklch(0.93 0.02 250); font-size: 11px; font-weight: 600; }
+.progress-copy > span { color: oklch(0.68 0.03 250); font-size: 9px; }
+.progress-copy i { display: block; width: 118px; max-width: 100%; height: 4px; overflow: hidden; border-radius: 4px; background: oklch(0.3 0.02 250); }
+.progress-copy em { display: block; width: 62%; height: 100%; border-radius: inherit; background: oklch(0.72 0.12 205); animation: progress-grow 1.4s ease-out both; }
+@keyframes progress-grow { from { width: 0; } to { width: 62%; } }
+
+.how-step-number { display: grid; width: 32px; height: 32px; flex: 0 0 auto; place-items: center; border: 1px solid oklch(0.72 0.08 230 / 0.2); border-radius: 50%; color: oklch(0.76 0.1 210); font-size: 10px; font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  .how-step, .mini-wave i, .progress-orbit, .progress-orbit span, .progress-orbit small, .progress-copy em { animation: none !important; transition: none !important; }
+}
+
 @media (max-width: 1023px) {
   .speech-orb-scene { position: relative; min-height: 340px; }
+  .hero-orbit { left: 50%; width: min(82vw, 600px); }
+  .hero-orbit-two { width: min(64vw, 460px); }
+  .hero-title { font-size: clamp(4rem, 15vw, 7.5rem); }
+  .hero-waveform { top: 36%; height: 38%; opacity: 0.32; }
 }
 
 @media (prefers-reduced-motion: reduce) {

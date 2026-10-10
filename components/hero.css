@@ -1,0 +1,13 @@
+.communication-hero { background-color: transparent; }
+.communication-hero .hero-title { color: #e2e8d3; }
+.communication-hero .hero-title span { color: #c4df8d; }
+.communication-hero .hero-description { color: #e2e8d39e; }
+.communication-hero .hero-start { background: #c4df8d; color: #0c111b; border: 1px solid #c4df8d; box-shadow: none; padding-inline: 24px; }
+.communication-hero .hero-start:hover { background: #d6e9ae; }
+.communication-hero .hero-pattern { background-image: url("data:image/svg+xml,%3Csvg width='72' height='72' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M72 0H0V72' fill='none' stroke='%23c4df8d' stroke-opacity='.12'/%3E%3C/svg%3E"); }
+.communication-hero .hero-waveform path { stroke: #c4df8d30; }
+.communication-hero .hero-waveform path:nth-child(2) { stroke: #e2e8d321; }
+.communication-hero .hero-orbit, .communication-hero .hero-orbit::before, .communication-hero .hero-orbit::after { border-color: #c4df8d15; }
+.communication-hero .speech-orb-scene { filter: drop-shadow(0 0 70px #c4df8d20); }
+.communication-hero .glass-float-card { background: #171e20c9; border-color: #c4df8d2b; color: #e2e8d3; }
+.communication-hero .glass-float-dot { background: #c4df8d; box-shadow: 0 0 12px #c4df8d35; }
